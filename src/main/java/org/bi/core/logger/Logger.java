@@ -1,5 +1,8 @@
 package org.bi.core.logger;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class Logger {
     private static final String INFO = "[INFO]";
     private static final String DEBUG = "[DEBUG]";
@@ -13,7 +16,15 @@ public class Logger {
 
     public void error(String s) {
         if (LOG_LEVEL == LogLevel.ERROR || LOG_LEVEL == LogLevel.INFO || LOG_LEVEL == LogLevel.DEBUG)
-            System.out.println(ERROR + s);
+            System.out.println(ERROR + " <" + s + ">");
+    }
+
+    public void error(String s, Throwable e) {
+        if (LOG_LEVEL == LogLevel.ERROR || LOG_LEVEL == LogLevel.INFO || LOG_LEVEL == LogLevel.DEBUG) {
+            System.out.println(ERROR + " <" + s + ">");
+            System.out.println(e.getMessage() + " ==> Stack trace: \n" +
+                    Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.joining("\n")));
+        }
     }
 
     public void info(String s) {

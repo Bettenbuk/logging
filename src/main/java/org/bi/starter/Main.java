@@ -12,9 +12,20 @@ public class Main {
         Logger logger = new Logger();
         Presenter presenter = new PresenterImpl(logger);
         SomethingInteractor interactor = new Something(presenter, logger);
-        Logger.setLogLevel(LogLevel.ERROR);
+        run(LogLevel.DEBUG, interactor);
+        run(LogLevel.INFO, interactor);
+        run(LogLevel.ERROR, interactor);
+    }
+
+    private static void run(LogLevel logLevel, SomethingInteractor interactor) {
+        Logger.setLogLevel(logLevel);
+        System.out.println("*********"+ logLevel + "*********");
         interactor.doSomething("world");
-        interactor.doSomething("commonException");
+        System.out.println("------------------------");
+        interactor.doSomething("inputException");
+        System.out.println("------------------------");
+        interactor.doSomething("handledException");
+        System.out.println("------------------------");
         interactor.doSomething("unexpectedException");
     }
 }

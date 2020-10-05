@@ -2,6 +2,8 @@ package org.bi.core.lib;
 
 import org.bi.core.logger.Logger;
 
+import java.util.List;
+
 public abstract class InteractorService {
 
     public static void setLogger(Logger logger) {
@@ -22,14 +24,14 @@ public abstract class InteractorService {
 
     public void execute() {
         logger.info("Start");
+        logger.debug(toString());
         try {
             doProcess();
         } catch (CommonException e) {
-            logger.error("error");
             presenter.deliverErrors(e.errors);
         } catch (Exception e) {
-            logger.error("error");
-            presenter.deliverErrors(CommonException.UNEXPECTED);
+            logger.error(CommonException.UNEXPECTED, e);
+            presenter.deliverErrors(List.of(CommonException.UNEXPECTED));
         }
         logger.info("End");
     }

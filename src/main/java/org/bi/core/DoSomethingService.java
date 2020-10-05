@@ -1,8 +1,8 @@
 package org.bi.core;
 
-import org.bi.core.exception.AnException;
+import org.bi.core.exception.HandledException;
+import org.bi.core.exception.InputException;
 import org.bi.core.lib.InteractorService;
-import org.bi.core.logger.Logger;
 
 public class DoSomethingService extends InteractorService {
     private final String parameter;
@@ -17,10 +17,16 @@ public class DoSomethingService extends InteractorService {
             System.out.println("DoSomethingService.doProcess");
             logger.debug("DoSomethingService.doProcess");
             ((Presenter) presenter).deliverString("Hello " + parameter + "!");
-        } else if ("commonException".equals(parameter)) {
-            throw new AnException();
+        } else if ("inputException".equals(parameter)) {
+            throw new InputException();
+        } else if ("handledException".equals(parameter)) {
+            try {
+                int i = 1 / 0;
+            } catch (Exception e) {
+                throw new HandledException(e);
+            }
         } else {
-            int i = 1/0;
+            int i = 1 / 0;
         }
     }
 

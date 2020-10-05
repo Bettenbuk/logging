@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class CommonException extends RuntimeException {
 
-    public static final List<String> UNEXPECTED = List.of("UNEXPECTED");
+    public static final String UNEXPECTED = "UNEXPECTED";
     private static Logger logger;
     public List<String> errors;
 
@@ -14,21 +14,22 @@ public abstract class CommonException extends RuntimeException {
         CommonException.logger = logger;
     }
 
+    public CommonException(String error, Throwable cause) {
+        this(List.of(error), cause);
+    }
+
     public CommonException(List<String> errors, Throwable cause) {
         super(cause);
         this.errors = errors;
+        logger.error(errors.toString(), cause);
+    }
+
+    public CommonException(String error) {
+        this(List.of(error));
     }
 
     public CommonException(List<String> errors) {
         this.errors = errors;
-    }
-
-    public CommonException(String error, Throwable cause) {
-        super(cause);
-        this.errors = List.of(error);
-    }
-
-    public CommonException(String error) {
-        this.errors = List.of(error);
+        logger.error(errors.toString());
     }
 }
