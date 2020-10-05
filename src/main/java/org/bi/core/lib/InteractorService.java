@@ -17,6 +17,7 @@ public abstract class InteractorService {
     protected static InteractorPresenter presenter;
 
     protected abstract void doProcess();
+
     public abstract String toString();
 
     public void execute() {
@@ -24,10 +25,10 @@ public abstract class InteractorService {
         try {
             doProcess();
         } catch (CommonException e) {
-            logger.info("error");
+            logger.error("error");
             presenter.deliverErrors(e.errors);
         } catch (Exception e) {
-            logger.info("error");
+            logger.error("error");
             presenter.deliverErrors(CommonException.UNEXPECTED);
         }
         logger.info("End");

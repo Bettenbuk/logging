@@ -15,13 +15,13 @@ public class PresenterImpl implements Presenter {
 
     @Override
     public void deliverString(String s) {
-        logger.info("PresenterImpl.deliverString:" + s);
+        logger.debug("PresenterImpl.deliverString:" + s);
         System.out.println("PresenterImpl.deliverString:" + s);
     }
 
     @Override
     public void deliverErrors(List<String> errors) {
         System.out.println("PresenterImpl.deliverErrors:" + errors);
-        logger.info("PresenterImpl.deliverErrors:" + errors);
+        logger.debug("PresenterImpl.deliverErrors:" + errors);
     }
 }

@@ -2,6 +2,7 @@ package org.bi.core;
 
 import org.bi.core.exception.AnException;
 import org.bi.core.lib.InteractorService;
+import org.bi.core.logger.Logger;
 
 public class DoSomethingService extends InteractorService {
     private final String parameter;
@@ -14,6 +15,7 @@ public class DoSomethingService extends InteractorService {
     protected void doProcess() {
         if ("world".equals(parameter)) {
             System.out.println("DoSomethingService.doProcess");
+            logger.debug("DoSomethingService.doProcess");
             ((Presenter) presenter).deliverString("Hello " + parameter + "!");
         } else if ("commonException".equals(parameter)) {
             throw new AnException();
