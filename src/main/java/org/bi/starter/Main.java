@@ -5,13 +5,15 @@ import org.bi.core.Something;
 import org.bi.core.SomethingInteractor;
 import org.bi.core.logger.LogLevel;
 import org.bi.core.logger.Logger;
+import org.bi.gateway.OtherThing;
 
 public class Main {
 
     public static void main(String[] args){
         Logger logger = new Logger();
         Presenter presenter = new PresenterImpl(logger);
-        SomethingInteractor interactor = new Something(presenter, logger);
+        OtherThing otherThing = new OtherThing();
+        SomethingInteractor interactor = new Something(presenter, logger, otherThing);
         run(LogLevel.DEBUG, interactor);
         run(LogLevel.INFO, interactor);
         run(LogLevel.ERROR, interactor);

@@ -3,12 +3,19 @@ package org.bi.core;
 import org.bi.core.exception.HandledException;
 import org.bi.core.exception.InputException;
 import org.bi.core.lib.InteractorService;
+import org.bi.core.lib.LogableServiceWithoutReturnValue;
 
 public class DoSomethingService extends InteractorService {
-    private final String parameter;
+    private final OtherThingGateway otherThingGateway;
+    private String parameter;
 
-    protected DoSomethingService(String parameter) {
+    public DoSomethingService(OtherThingGateway otherThingGateway) {
+        this.otherThingGateway = otherThingGateway;
+    }
+
+    public DoSomethingService setParameters(String parameter) {
         this.parameter = parameter;
+        return this;
     }
 
     @Override
@@ -16,7 +23,7 @@ public class DoSomethingService extends InteractorService {
         if ("world".equals(parameter)) {
             System.out.println("DoSomethingService.doProcess");
             logger.debug("DoSomethingService.doProcess");
-            ((Presenter) presenter).deliverString("Hello " + parameter + "!");
+            ((Presenter) presenter).deliverString(otherThingGateway.doSomethingElse(parameter));
         } else if ("inputException".equals(parameter)) {
             throw new InputException();
         } else if ("handledException".equals(parameter)) {

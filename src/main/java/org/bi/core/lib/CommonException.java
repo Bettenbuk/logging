@@ -4,15 +4,10 @@ import org.bi.core.logger.Logger;
 
 import java.util.List;
 
-public abstract class CommonException extends RuntimeException {
+public abstract class CommonException extends LogableException {
 
     public static final String UNEXPECTED = "UNEXPECTED";
-    private static Logger logger;
     public List<String> errors;
-
-    public static void setLogger(Logger logger) {
-        CommonException.logger = logger;
-    }
 
     public CommonException(String error, Throwable cause) {
         this(List.of(error), cause);
